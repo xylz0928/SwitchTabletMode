@@ -3,6 +3,7 @@
 [Chinese Version | 中文说明](README.md)
 ## Uses
 Used to switch between **tablet mode** and **normal PC mode** on the Windows platform
+
 -> Since Windows 11 is currently recognized by itself, when it is judged to be a tablet device, it is forced to stay in tablet mode, and cannot be manually switched to ordinary PC mode. This script allows the user to switch manually.
 ## Compatibility
 - Compatible with Windows 11 platform (theoretically also supports Windows 10, not yet tested)
