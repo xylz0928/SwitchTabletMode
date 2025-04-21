@@ -20,18 +20,13 @@ fltmc >nul 2>&1 || (
 )
 
 :check_device
-:: 安全确认提示
-echo.
-echo [警告] 本脚本仅适用于支持Windows平板模式的设备
-echo 在普通PC上运行可能导致意外行为
-echo.
 :: 通过PowerShell判断是否为平板设备
-for /f "tokens=*" %%i in ('powershell -Command "Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public class TabletCheck { [DllImport(\"user32.dll\")] public static extern int GetSystemMetrics(int nIndex); }'; $result = [TabletCheck]::GetSystemMetrics(86); Write-Host ('是否为平板设备：' + ($result -ne 0))"') do (
+for /f "tokens=*" %%i in ('powershell -Command "Add-Type -TypeDefinition 'using System; using System.Runtime.InteropServices; public class TabletCheck { [DllImport(\"user32.dll\")] public static extern int GetSystemMetrics(int nIndex); }'; $result = [TabletCheck]::GetSystemMetrics(86); Write-Host ($result -ne 0)"') do (
     set "result=%%i"
 )
 
 :: 判断设备是否为平板设备
-if "%result%"=="是否为平板设备：True" (
+if "%result%"=="True" (
     echo 当前设备是平板设备，继续执行脚本...
 ) else (
     echo 当前设备不是平板设备。
@@ -39,13 +34,13 @@ if "%result%"=="是否为平板设备：True" (
     choice /c YN /m "警告: 该设备不是平板设备，继续执行可能导致意外行为。是否仍要继续执行平板模式切换? (Y=继续, N=退出)"
     
     if %errorlevel% neq 1 (
+        echo 用户选择继续，脚本继续执行...
+    ) else (
         echo 用户取消操作，脚本退出...
         timeout /t 2 >nul
         exit
     )
 )
-
-:: 提示用户设备支持触控并继续执行脚本
 
 :: 设置注册表路径和键名
 set "regPath=HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl"
