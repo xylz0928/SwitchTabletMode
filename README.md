@@ -1,2 +1,28 @@
-# SwitchTabletMode
-Used on Windows Platform, to switch tablet between Tablet Mode and PC Mode
+# 切换平板模式
+## 用途
+用于在Windows平台进行切换**平板模式**与**普通PC模式**
+## 兼容性
+- 兼容 Windows 11 平台（理论也支持Windows10，尚未测试）
+- 兼容 x86 平台
+- 兼容 Arm 平台
+## 用法
+下载本项目中的cmd文件，或拷贝其内容粘贴于文本中，以ANSI编码另存为cmd/bat文件，以管理员运行
+## 原理
+通过控制注册表项`HKLM\SYSTEM\CurrentControlSet\Control\PriorityControl\ConvertibleSlateMode`的值，进行开关平板模式
+## 功能
+- 增加识别当前是否以管理员运行，是则继续，否则提示并五秒后退出
+- 增加识别当前设备是否为平板设备，是则继续运行，否则告警（仍可强制运行，注：这不能给你带来触控和屏幕自动旋转！）
+- 增加识别当前模式
+- 增加识别执行后是否重启Explorer服务（默认不需要重启Explorer即可立即生效）
+
+## 注释
+### 平板模式
+- 优化触控控制，尤其是多点触控
+- 文件选择采用勾选框
+- 提供键盘接入识别：有接入则使用外接键盘，无接入则拉起屏幕键盘
+- 提供重力旋转控制（如果有硬件支持）
+- 状态栏自动隐藏（与PC模式设置自动隐藏样式不同）
+- 等等
+### 普通PC模式
+- 即大众所熟悉的台式机、笔记本Windows控制模式
+- 于平板设备上：无法自动拉起屏幕键盘，触控操作不方便，等等
